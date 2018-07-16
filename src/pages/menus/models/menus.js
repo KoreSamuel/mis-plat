@@ -6,35 +6,30 @@ export default {
     list: [],
   },
   reducers: {
-    save(state, { payload: { data: list } }) {
+    save(state, { payload: { list } }) {
       return { ...state, list };
     },
+    add(state) {
+      const { list } = state;
+      const newID = +list[list.length - 1].id + 1;
+      return { ...state, list: [...list, { id: newID, name: '', url: '' }] }
+    },
+    remove(state, { payload: item }) {
+      const { list } = state;
+      return { ...state, list: list.filter(k => k.id !== item.id) }
+    }
   },
   effects: {
-    *fetch({ payload: { page } }, { call, put }) {
-      const { data } = yield call(menusServices.fetch);
+    *fetch({ payload: id }, { call, put }) {
+      const { data } = yield call(menusServices.fetch, id);
+      const { list } = data.info;
       yield put({
         type: 'save',
         payload: {
-          data,
+          list,
         },
       });
-    },
-    *remove({ payload: id }, { call, put, select }) {
-      yield call(menusServices.remove, id);
-      const page = yield select(state => state.users.page);
-      yield put({ type: 'fetch', payload: { page } });
-    },
-    *patch({ payload: { id, values } }, { call, put, select }) {
-      yield call(menusServices.patch, id, values);
-      const page = yield select(state => state.users.page);
-      yield put({ type: 'fetch', payload: { page } });
-    },
-    *create({ payload: values }, { call, put, select }) {
-      yield call(menusServices.create, values);
-      const page = yield select(state => state.users.page);
-      yield put({ type: 'fetch', payload: { page } });
-    },
+    }
   },
   subscriptions: {
     setup({ dispatch, history }) {

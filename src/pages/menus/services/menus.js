@@ -1,7 +1,7 @@
 import request from '../../../utils/request';
 
-export function fetch() {
-  return request(`/api/menus`);
+export function fetch({id}) {
+  return request(`/api/menus?id=${id}`);
 }
 
 export function remove(id) {

@@ -1,5 +1,5 @@
 import request from '../../../utils/request';
 
-export function fetch() {
-  return request('/api/pageedit');
+export function fetch({ id }) {
+  return request(`/api/pageedit?id=${id}`);
 }

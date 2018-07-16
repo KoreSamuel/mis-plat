@@ -24,6 +24,13 @@ class BasicLayout extends Component {
   render() {
     const { children, location } = this.props;
     const { collapsed } = this.state;
+    if (location.pathname === '/login') {
+      return <Layout>
+        <Content>
+          {children}
+        </Content>
+      </Layout>
+    }
     return (
       <Layout>
         <SiderMenu
@@ -48,7 +55,7 @@ class BasicLayout extends Component {
             />
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-            { children }
+            {children}
           </Content>
         </Layout>
       </Layout>

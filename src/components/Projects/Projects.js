@@ -1,5 +1,5 @@
 import { connect } from 'dva';
-import { Table, Popconfirm, Button } from 'antd';
+import { Table, Popconfirm, Button, Card } from 'antd';
 // import { routerRedux } from 'dva/router';
 // import Link from 'umi/link';
 import styles from './Projects.less';
@@ -17,7 +17,7 @@ function Projects({ dispatch, list: dataSource, loading, total, page: current })
 
   function deleteHandler(id) {
     dispatch({
-      type: 'users/remove',
+      type: 'projects/remove',
       payload: id,
     });
   }
@@ -69,7 +69,7 @@ function Projects({ dispatch, list: dataSource, loading, total, page: current })
 
   return (
     <div className={styles.normal}>
-      <div>
+      <Card>
         <div className={styles.create}>
           <ProjectsModal record={{}} onOk={createHandler}>
             <Button type="primary">新增项目</Button>
@@ -83,7 +83,7 @@ function Projects({ dispatch, list: dataSource, loading, total, page: current })
           rowKey={record => record.id}
           pagination={false}
         />
-      </div>
+      </Card>
     </div>
   );
 }

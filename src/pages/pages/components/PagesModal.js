@@ -57,7 +57,7 @@ class ProjectsModal extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="页面名称"
@@ -89,7 +89,7 @@ class ProjectsModal extends Component {
                 getFieldDecorator('template', {
                   initialValue: template,
                 })(
-                  <Select defaultValue="1">
+                  <Select>
                     <Option value="1">搜索页模板</Option>
                     <Option value="2">详情页模板</Option>
                     <Option value="3">其他</Option>

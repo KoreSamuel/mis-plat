@@ -1,5 +1,5 @@
 import { connect } from 'dva';
-import { Table, Popconfirm, Button } from 'antd';
+import { Table, Popconfirm, Button, Card } from 'antd';
 import styles from './Pages.less';
 import PagesModal from './PagesModal';
 
@@ -64,7 +64,7 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
 
   return (
     <div className={styles.normal}>
-      <div>
+      <Card>
         <div className={styles.create}>
           <PagesModal record={{}} onOk={createHandler}>
             <Button type="primary">新增页面</Button>
@@ -78,7 +78,7 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
           rowKey={record => record.id}
           pagination={false}
         />
-      </div>
+      </Card>
     </div>
   );
 }

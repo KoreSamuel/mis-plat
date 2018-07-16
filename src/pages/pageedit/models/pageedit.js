@@ -6,6 +6,7 @@ export default {
   state: {
     page_name: '',
     url: '',
+    page_template: 0,
     searchFields: [],
     showFields: []
   },
@@ -21,14 +22,15 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const { data } = yield call(pageeditServices.fetch);
-      const { page_config, page_name } = data.info;
+    *fetch({ payload: id }, { call, put }) {
+      const { data } = yield call(pageeditServices.fetch, id);
+      const { page_config, page_name, page_template } = data.info;
       yield put({
         type: 'save',
         payload: {
           page_name,
           url: page_config.url || '',
+          page_template,
           searchFields: page_config.fields.searchFields || [],
           showFields: page_config.fields.showFields || []
         },
@@ -40,8 +42,8 @@ export default {
   },
 
   reducers: {
-    save(state, { payload: { page_config, page_name, url, searchFields, showFields } }) {
-      return { ...state, page_config, page_name, url, searchFields, showFields };
+    save(state, { payload: { page_name, url, page_template, searchFields, showFields } }) {
+      return { ...state, page_name, url, page_template, searchFields, showFields };
     },
     addSearch(state, action) {
       const { searchFields } = state;

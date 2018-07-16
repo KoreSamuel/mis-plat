@@ -1,26 +1,19 @@
 import { connect } from 'dva';
 import { Input, Button, Card, Divider, Form } from 'antd';
-import styles from './Pageedit.less';
-import SearchFields from './SearchFields';
-import ShowFields from './ShowFields'
+import DetailFields from './DetailFields';
 import FieldList from './FieldList';
 
 const FormItem = Form.Item;
 
-function PageEdit({ dispatch, url, page_name, searchFields, showFields, loading }) {
+function PageEdit({ dispatch, url, page_template, page_name, searchFields, showFields, loading }) {
   const formItemLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 14 },
   };
+  console.log(page_template)
   function addSearchFields(values) {
     dispatch({
       type: 'pageedit/addSearch',
-      payload: values
-    });
-  }
-  function addShowFields(values) {
-    dispatch({
-      type: 'pageedit/addShow',
       payload: values
     });
   }
@@ -37,8 +30,8 @@ function PageEdit({ dispatch, url, page_name, searchFields, showFields, loading 
     })
   }
   return (
-    <div className={styles.normal}>
-      <Card title={page_name}>
+    <div>
+      <Card title={'页面名称：' + page_name}>
         <div style={{ maxWidth: 600 }}>
           <h4>配置项</h4>
           <Divider />
@@ -49,18 +42,11 @@ function PageEdit({ dispatch, url, page_name, searchFields, showFields, loading 
             <Input onChange={changeUrl} defaultValue={url} />
           </FormItem>
           <Divider />
-          <SearchFields onOk={addSearchFields} />
+          <DetailFields onOk={addSearchFields} />
           <Divider />
           <div>
             <p>已添加字段</p>
             <FieldList type="search" list={searchFields} />
-          </div>
-          <Divider />
-          <ShowFields onOk={addShowFields} />
-          <Divider />
-          <div>
-            <p>已添加字段</p>
-            <FieldList type="show" list={showFields} />
           </div>
           <Divider />
         </div>
@@ -71,9 +57,10 @@ function PageEdit({ dispatch, url, page_name, searchFields, showFields, loading 
 }
 
 function mapStateToProps(state) {
-  const { url, page_name, searchFields, showFields } = state.pageedit;
+  const { url, page_template,  page_name, searchFields, showFields } = state.pageedit;
   return {
     url,
+    page_template,
     page_name,
     searchFields,
     showFields,

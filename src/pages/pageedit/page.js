@@ -1,10 +1,10 @@
 
-import PageEdit from './components/Pageedit';
+import PageIndex from './components/PageIndex';
 
 export default () => {
   return (
     <div>
-      <PageEdit />
+      <PageIndex />
     </div>
   )
 }

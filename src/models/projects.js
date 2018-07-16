@@ -27,6 +27,16 @@ export default {
         },
       });
     },
+    *remove({ payload: id }, { call, put }) {
+      yield console.log(id);
+      const { data } = yield call(projectsServices.remove, id);
+      yield put({
+        type: 'save',
+        payload: {
+          data
+        }
+      })
+    }
   },
 
   reducers: {

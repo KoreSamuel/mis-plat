@@ -56,7 +56,7 @@ class ProjectsModal extends Component {
           onOk={this.okHandler}
           onCancel={this.hideModelHandler}
         >
-          <Form horizontal onSubmit={this.okHandler}>
+          <Form onSubmit={this.okHandler}>
             <FormItem
               {...formItemLayout}
               label="项目名称"

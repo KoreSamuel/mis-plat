@@ -1,56 +1,29 @@
 import { connect } from 'dva';
-import {  Button, Card, List, Input } from 'antd';
-// import { routerRedux } from 'dva/router';
+import { Card } from 'antd';
+import MenusForm from './MenusForm';
 import styles from './Menus.less';
 
-const ListItem = List.Item;
-
-function Menus({ dispatch, list: dataSource, loading }) {
-  /* function deleteHandler(id) {
+function Menus({ dispatch, list, loading }) {
+  function handleRemove(item) {
     dispatch({
-      type: 'users/remove',
-      payload: id,
+      type: 'menus/remove',
+      payload: item,
     });
   }
 
-  function pageChangeHandler(page) {
-    dispatch(routerRedux.push({
-      pathname: '/users',
-      query: { page },
-    }));
-  }
-
-  function editHandler(id, values) {
+  function handleAdd() {
     dispatch({
-      type: 'users/patch',
-      payload: { id, values },
-    });
+      type: 'menus/add'
+    })
   }
-
-  function createHandler(values) {
-    dispatch({
-      type: 'users/create',
-      payload: values,
-    });
-  } */
 
   return (
     <div className={styles.normal}>
       <Card>
-        <List
-          size='small'
-          dataSource={dataSource.list}
-          renderItem={item => (
-            <ListItem>
-              菜单名称：<Input defaultValue={item.name} style={{ width: 154, marginLeft: 16, marginRight: 20 }} />
-              菜单URL：<Input defaultValue={item.url} style={{ width: 154, marginLeft: 16, marginRight: 20 }} /><a>上移</a><a>下移</a><a>删除</a>
-            </ListItem>
-          )}
+        <MenusForm data={list}
+          handleRemove={handleRemove}
+          handleAdd={handleAdd}
         />
-        <div style={{marginTop: 20,}}>
-          <Button type="primary">增加</Button>
-          <Button type="primary" style={{marginLeft: 10}}>确认保存</Button>
-        </div>
       </Card>
     </div>
   );

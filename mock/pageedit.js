@@ -4,6 +4,8 @@ export default {
     message: 'success',
     info: {
       page_name: '测试页面',
+      page_url: 'xxxy/ssff',
+      page_template: 2,
       page_config: {
         url: 'xxx/ssss',
         fields: {
