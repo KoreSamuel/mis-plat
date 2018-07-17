@@ -40,7 +40,7 @@ class ProjectsModal extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { name, url, template } = this.props.record;
+    const { page_name, page_url, page_template } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -64,8 +64,8 @@ class ProjectsModal extends Component {
               hasFeedback
             >
               {
-                getFieldDecorator('name', {
-                  initialValue: name,
+                getFieldDecorator('page_name', {
+                  initialValue: page_name,
                 })(<Input />)
               }
             </FormItem>
@@ -75,8 +75,8 @@ class ProjectsModal extends Component {
               hasFeedback
             >
               {
-                getFieldDecorator('url', {
-                  initialValue: url,
+                getFieldDecorator('page_url', {
+                  initialValue: page_url,
                 })(<Input />)
               }
             </FormItem>
@@ -86,8 +86,8 @@ class ProjectsModal extends Component {
               hasFeedback
             >
               {
-                getFieldDecorator('template', {
-                  initialValue: template,
+                getFieldDecorator('page_template', {
+                  initialValue: page_template,
                 })(
                   <Select>
                     <Option value="1">搜索页模板</Option>

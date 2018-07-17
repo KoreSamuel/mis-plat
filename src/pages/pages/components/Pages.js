@@ -29,32 +29,32 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
   const columns = [
     {
       title: '页面名称',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text, record) => <a href={'/pageedit?id=' + record.id}>{text}</a>,
+      dataIndex: 'page_name',
+      key: 'page_name',
+      render: (text, record) => <a href={'/pageedit?id=' + record.page_id}>{text}</a>,
     },
     {
       title: '页面URL',
-      dataIndex: 'url',
+      dataIndex: 'page_url',
       key: 'url',
     },
     {
       title: '页面模板',
-      dataIndex: 'template',
-      key: 'template',
+      dataIndex: 'page_template',
+      key: 'page_template',
     },
     {
       title: '操作',
       key: 'operation',
       render: (text, record) => (
         <span className={styles.operation}>
-          <PagesModal record={record} onOk={editHandler.bind(null, record.id)}>
+          <PagesModal record={record} onOk={editHandler.bind(null, record.page_id)}>
             <a>编辑</a>
           </PagesModal>
-          <Popconfirm title="您确定要删除吗?" onConfirm={deleteHandler.bind(null, record.id)}>
+          <Popconfirm title="您确定要删除吗?" onConfirm={deleteHandler.bind(null, record.page_id)}>
             <a href="">删除</a>
           </Popconfirm>
-          <Popconfirm title="您确定要导出吗?" onConfirm={deleteHandler.bind(null, record.id)}>
+          <Popconfirm title="您确定要导出吗?" onConfirm={deleteHandler.bind(null, record.page_id)}>
             <a href="">导出</a>
           </Popconfirm>
         </span>
@@ -75,7 +75,7 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
           columns={columns}
           bordered
           dataSource={dataSource}
-          rowKey={record => record.id}
+          rowKey={record => record.page_id}
           pagination={false}
         />
       </Card>

@@ -39,14 +39,19 @@ function Projects({ dispatch, list: dataSource, loading, total, page: current })
   const columns = [
     {
       title: '项目名称',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text, record) => <a href={'/menus?id=' + record.id}>{text}</a>,
+      dataIndex: 'site_name',
+      key: 'site_name',
+      render: (text, record) => <a href={'/menus?id=' + record.site_id}>{text}</a>,
     },
     {
       title: '项目描述',
-      dataIndex: 'desc',
-      key: 'desc',
+      dataIndex: 'site_desc',
+      key: 'site_desc',
+    },
+    {
+      title: '项目模板',
+      dataIndex: 'site_template',
+      key: 'site_template',
     },
     {
       title: '操作',
@@ -90,6 +95,7 @@ function Projects({ dispatch, list: dataSource, loading, total, page: current })
 
 function mapStateToProps(state) {
   const { list } = state.projects;
+  console.log(list)
   return {
     list,
     loading: state.loading.models.projects,

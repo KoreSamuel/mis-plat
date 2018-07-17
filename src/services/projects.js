@@ -1,12 +1,10 @@
-import request from '../utils/request';
+// import request from '../utils/request';
+import instance from '../utils/axios';
 
 export function fetch() {
-  return request('/api/projects/list');
+  return instance.get('/api/sites/list');
 }
 
 export function remove({ id }) {
-  return request(`/api/projects/remove`, {
-    methods: 'get',
-    body: JSON.stringify(id)
-  });
+  return instance.post(`/api/projects/remove`, id);
 }

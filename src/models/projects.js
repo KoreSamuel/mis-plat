@@ -20,12 +20,17 @@ export default {
   effects: {
     *fetch({ payload }, { call, put }) {
       const { data } = yield call(projectsServices.fetch);
-      yield put({
-        type: 'save',
-        payload: {
-          data,
-        },
-      });
+      const { code, info, message } = data;
+      if (code === 0) {
+        yield put({
+          type: 'save',
+          payload: {
+            list: info.siteList
+          },
+        });
+      } else {
+        console.log(message)
+      }
     },
     *remove({ payload: id }, { call, put }) {
       yield console.log(id);
@@ -41,7 +46,7 @@ export default {
 
   reducers: {
     save(state, action) {
-      return { ...state, ...action.payload.data };
+      return { ...state, list: action.payload.list };
     },
   },
 

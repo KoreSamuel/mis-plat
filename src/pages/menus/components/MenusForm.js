@@ -50,15 +50,15 @@ class MenusForm extends Component {
             return <div key={index} style={{ position: 'relative', overflow: 'hidden' }}>
               <FormItem style={{ display: 'none' }}>
                 {
-                  getFieldDecorator(`item[${index}].id`, {
-                    initialValue: item.id,
+                  getFieldDecorator(`item[${index}].menu_id`, {
+                    initialValue: item.menu_id,
                   })(<Input />)
                 }
               </FormItem>
               <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单名称' hasFeedback>
                 {
-                  getFieldDecorator(`item[${index}].name`, {
-                    initialValue: item.name,
+                  getFieldDecorator(`item[${index}].menu_name`, {
+                    initialValue: item.menu_name,
                     rules: [{
                       required: true,
                       message: '请输入菜单名称'
@@ -68,8 +68,8 @@ class MenusForm extends Component {
               </FormItem>
               <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单URL' hasFeedback>
                 {
-                  getFieldDecorator(`item[${index}].url`, {
-                    initialValue: item.url
+                  getFieldDecorator(`item[${index}].menu_url`, {
+                    initialValue: item.menu_url
                   })(<Input style={{ width: 200 }} placeholder='请输入菜单URL（选填）' />)
                 }
               </FormItem>

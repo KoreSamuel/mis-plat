@@ -18,20 +18,25 @@ export default {
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      const { data } = yield call(pagesServices.fetch);
-      yield put({
-        type: 'save',
-        payload: {
-          data,
-        },
-      });
+    *fetch({ payload: id }, { call, put }) {
+      const { data } = yield call(pagesServices.fetch, id);
+      const { code, info, message } = data;
+      if (code === 0) {
+        yield put({
+          type: 'save',
+          payload: {
+            list: info.list
+          },
+        });
+      } else {
+        console.log(message)
+      }
     },
   },
 
   reducers: {
-    save(state, action) {
-      return { ...state, ...action.payload.data };
+    save(state, { payload: { list } }) {
+      return { ...state, list };
     },
   },
 

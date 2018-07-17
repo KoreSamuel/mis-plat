@@ -33,7 +33,7 @@ function mapStateToProps(state) {
   const { list } = state.menus;
   return {
     list,
-    loading: state.loading.models.users,
+    loading: state.loading.models.menus,
   };
 }
 

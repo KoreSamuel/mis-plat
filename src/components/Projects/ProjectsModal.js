@@ -81,7 +81,7 @@ class ProjectsModal extends Component {
             </FormItem>
             <FormItem
               {...formItemLayout}
-              label="Select"
+              label="项目模板"
               hasFeedback
             >
               {getFieldDecorator('template', {

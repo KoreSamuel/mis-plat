@@ -1,12 +1,12 @@
 import { resolve } from 'path';
 export default {
-  proxy: {
-    "/api": {
-      "target": "http://jsonplaceholder.typicode.com/",
-      "changeOrigin": true,
-      "pathRewrite": { "^/api": "" }
-    }
-  },
+  // proxy: {
+  //   "/api": {
+  //     "target": "http://jsonplaceholder.typicode.com/",
+  //     "changeOrigin": true,
+  //     "pathRewrite": { "^/api": "" }
+  //   }
+  // },
   alias: {
     themes: resolve(__dirname, './src/themes'),
     components: resolve(__dirname, "./src/components"),

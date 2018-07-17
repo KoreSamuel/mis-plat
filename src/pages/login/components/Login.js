@@ -4,12 +4,10 @@ import styles from './Login.less'
 import { connect } from 'dva'
 import { Button, Row, Form, Input } from 'antd'
 import logo from '../../../assets/logo.svg';
-// import { config } from 'utils'
 const config = {
   logo,
   name: 'mis plat'
 }
-// const styles = {}
 
 const FormItem = Form.Item
 
