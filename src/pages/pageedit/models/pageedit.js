@@ -1,4 +1,6 @@
 import * as pageeditServices from '../services/pageedit';
+import { message } from 'antd';
+import router from 'umi/router';
 export default {
 
   namespace: 'pageedit',
@@ -6,25 +8,33 @@ export default {
   state: {
     page_name: '',
     url: '',
-    page_template: 0,
+    page_template: null,
     searchFields: [],
     showFields: []
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
-      return history.listen(({ pathname, query }) => {
+      return history.listen(({ pathname }) => {
         if (pathname === '/pageedit') {
-          dispatch({ type: 'fetch', payload: query });
+          dispatch({ type: 'fetch' });
         }
       });
     },
   },
 
   effects: {
-    *fetch({ payload: id }, { call, put }) {
-      const { data } = yield call(pageeditServices.fetch, id);
-      const { page_config, page_name, page_template } = data.info;
+    *fetch({ payload }, { call, put, select }) {
+      let id = yield select(state => state.projects.curProject);
+      let page_id = yield select(state => state.pages.curPage);
+      if (!id) {
+        id = localStorage.getItem('curProject');
+      }
+      if (!page_id) {
+        page_id = localStorage.getItem('curPage');
+      }
+      const { data } = yield call(pageeditServices.fetch, { id, page_id });
+      const { page_config = {url: '', fields: {}}, page_name, page_template } = data.info;
       yield put({
         type: 'save',
         payload: {
@@ -36,8 +46,23 @@ export default {
         },
       });
     },
-    *submit({ payload }, { call, put }) {
-      yield console.log('submit')
+    *submit({ payload }, { call, put, select }) {
+      let id = yield select(state => state.projects.curProject);
+      let page_id = yield select(state => state.pages.curPage);
+      if (!id) {
+        id = localStorage.getItem('curProject');
+      }
+      if (!page_id) {
+        page_id = localStorage.getItem('curPage');
+      }
+      const values = yield select(state => state.pageedit)
+      const { data } = yield call(pageeditServices.submit, { id, page_id, values });
+      if (data.code === 0) {
+        message.success('保存成功');
+        router.push('/pages');
+      } else {
+        message.error(data.message)
+      }
     }
   },
 

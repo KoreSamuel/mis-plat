@@ -17,12 +17,21 @@ function Menus({ dispatch, list, loading }) {
     })
   }
 
+  function handleSubmit(item) {
+    dispatch({
+      type: 'menus/submit',
+      payload: item
+    })
+  }
+
   return (
     <div className={styles.normal}>
       <Card>
-        <MenusForm data={list}
+        <MenusForm
+          data={list}
           handleRemove={handleRemove}
           handleAdd={handleAdd}
+          onOk={handleSubmit}
         />
       </Card>
     </div>

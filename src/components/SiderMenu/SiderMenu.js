@@ -4,7 +4,6 @@ import pathToRegexp from 'path-to-regexp';
 import Link from 'umi/link';
 import styles from './index.less';
 import { urlToList } from '../_utils/pathTools';
-
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -182,7 +181,7 @@ export default class SiderMenu extends PureComponent {
     });
   };
   render() {
-    const { logo, collapsed, onCollapse } = this.props;
+    const { logo, collapsed, onCollapse, menuData } = this.props;
     const { openKeys } = this.state;
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed
@@ -195,6 +194,7 @@ export default class SiderMenu extends PureComponent {
     if (!selectedKeys.length) {
       selectedKeys = [openKeys[openKeys.length - 1]];
     }
+    this.menus = menuData;
     return (
       <Sider
         trigger={null}

@@ -39,7 +39,7 @@ class ProjectsModal extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { name, desc, template } = this.props.record;
+    const { site_name, site_desc, site_template } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -63,8 +63,12 @@ class ProjectsModal extends Component {
               hasFeedback
             >
               {
-                getFieldDecorator('name', {
-                  initialValue: name,
+                getFieldDecorator('site_name', {
+                  initialValue: site_name,
+                  rules: [{
+                    required: true,
+                    message: '请输入项目名称'
+                  }]
                 })(<Input />)
               }
             </FormItem>
@@ -74,8 +78,8 @@ class ProjectsModal extends Component {
               hasFeedback
             >
               {
-                getFieldDecorator('desc', {
-                  initialValue: desc,
+                getFieldDecorator('site_desc', {
+                  initialValue: site_desc,
                 })(<Input />)
               }
             </FormItem>
@@ -84,8 +88,12 @@ class ProjectsModal extends Component {
               label="项目模板"
               hasFeedback
             >
-              {getFieldDecorator('template', {
-               initialValue: template,
+              {getFieldDecorator('site_template', {
+                initialValue: site_template,
+                rules: [{
+                  required: true,
+                  message: '请选择项目模板'
+                }]
               })(
                 <Select placeholder="Please select a template">
                   <Option value={"1"}>标准</Option>

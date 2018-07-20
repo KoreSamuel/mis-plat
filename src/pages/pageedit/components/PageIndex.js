@@ -5,7 +5,7 @@ import './PageIndex.less';
 
 function PageIndex({ page_template }) {
   return (
-     page_template === 2 ? <PageSearch /> : <PageDetail />
+     +page_template === 2 ? <PageSearch /> : <PageDetail />
   );
 }
 

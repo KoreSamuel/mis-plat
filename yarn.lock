@@ -6704,6 +6704,10 @@ path-to-regexp@^1.0.1, path-to-regexp@^1.7.0:
   dependencies:
     isarray "0.0.1"
 
+path-to-regexp@^2.2.1:
+  version "2.2.1"
+  resolved "http://registry.npm.taobao.org/path-to-regexp/download/path-to-regexp-2.2.1.tgz#90b617025a16381a879bc82a38d4e8bdeb2bcf45"
+
 path-type@^1.0.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/path-type/download/path-type-1.1.0.tgz#59c44f7ee491da704da415da5a4070ba4f8fe441"
@@ -7197,7 +7201,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@15.x, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@15.x, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -7436,6 +7440,14 @@ rc-dialog@~7.1.0:
     babel-runtime "6.x"
     rc-animate "2.x"
     rc-util "^4.4.0"
+
+rc-drawer-menu@^1.1.0:
+  version "1.1.0"
+  resolved "http://registry.npm.taobao.org/rc-drawer-menu/download/rc-drawer-menu-1.1.0.tgz#75609fd3f795a4c87d322b12184bf8082bade014"
+  dependencies:
+    babel-runtime "6.x"
+    classnames "^2.2.5"
+    prop-types "^15.5.0"
 
 rc-dropdown@~2.1.0:
   version "2.1.2"

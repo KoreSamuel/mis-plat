@@ -26,7 +26,7 @@ const menus = [
   {
     name: '管理项目',
     icon: 'dashboard',
-    path: '/'
+    path: ''
   }
 ]
 

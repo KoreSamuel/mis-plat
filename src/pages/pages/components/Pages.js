@@ -1,10 +1,10 @@
 import { connect } from 'dva';
 import { Table, Popconfirm, Button, Card } from 'antd';
+import router from 'umi/router'
 import styles from './Pages.less';
 import PagesModal from './PagesModal';
 
 function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
-  console.log(dataSource)
   function deleteHandler(id) {
     dispatch({
       type: 'pages/remove',
@@ -12,10 +12,10 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
     });
   }
 
-  function editHandler(id, values) {
+  function editHandler(page_id, values) {
     dispatch({
       type: 'pages/patch',
-      payload: { id, values },
+      payload: { page_id, values },
     });
   }
 
@@ -26,12 +26,20 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
     });
   }
 
+  function goToDetail(page_id) {
+    dispatch({
+      type: 'pages/toDetail',
+      payload: page_id
+    })
+    router.push('/pageedit');
+  }
+
   const columns = [
     {
       title: '页面名称',
       dataIndex: 'page_name',
       key: 'page_name',
-      render: (text, record) => <a href={'/pageedit?id=' + record.page_id}>{text}</a>,
+      render: (text, record) => <a onClick={goToDetail.bind(null, record.page_id)}>{text}</a>,
     },
     {
       title: '页面URL',
@@ -53,9 +61,6 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
           </PagesModal>
           <Popconfirm title="您确定要删除吗?" onConfirm={deleteHandler.bind(null, record.page_id)}>
             <a href="">删除</a>
-          </Popconfirm>
-          <Popconfirm title="您确定要导出吗?" onConfirm={deleteHandler.bind(null, record.page_id)}>
-            <a href="">导出</a>
           </Popconfirm>
         </span>
       ),

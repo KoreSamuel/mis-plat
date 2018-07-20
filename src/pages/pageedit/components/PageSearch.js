@@ -6,12 +6,11 @@ import FieldList from './FieldList';
 
 const FormItem = Form.Item;
 
-function PageEdit({ dispatch, url, page_template, page_name, searchFields, showFields, loading }) {
+function PageSearch({ dispatch, url, page_template, page_name, searchFields, showFields, loading }) {
   const formItemLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 14 },
   };
-  console.log(page_template)
   function addSearchFields(values) {
     dispatch({
       type: 'pageedit/addSearch',
@@ -82,4 +81,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(PageEdit);
+export default connect(mapStateToProps)(PageSearch);

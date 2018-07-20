@@ -1,4 +1,5 @@
 import * as menusServices from '../services/menus';
+import {message} from 'antd';
 
 export default {
   namespace: 'menus',
@@ -11,17 +12,26 @@ export default {
     },
     add(state) {
       const { list } = state;
-      const newID = +list[list.length - 1].id + 1;
-      return { ...state, list: [...list, { id: newID, name: '', url: '' }] }
+      let newID = '';
+      if (list.length) {
+        newID = list[list.length - 1]._id + 1;
+      } else {
+        newID = +new Date();
+      }
+      return { ...state, list: [...list, { _id: newID, name: '', url: '' }] }
     },
     remove(state, { payload: item }) {
       const { list } = state;
-      return { ...state, list: list.filter(k => k.id !== item.id) }
+      return { ...state, list: list.filter(k => k._id !== item._id) }
     }
   },
   effects: {
-    *fetch({ payload: id }, { call, put }) {
-      const { data } = yield call(menusServices.fetch, id);
+    *fetch({ payload }, { call, put, select }) {
+      let id = yield select(state => state.projects.curProject);
+      if (!id) {
+        id = localStorage.getItem('curProject');
+      }
+      const { data } = yield call(menusServices.fetch, { id });
       const { list } = data.info;
       yield put({
         type: 'save',
@@ -29,13 +39,25 @@ export default {
           list,
         },
       });
+    },
+    *submit({ payload: { item } }, { call, put, select }) {
+      let id = yield select(state => state.projects.curProject);
+      if (!id) {
+        id = localStorage.getItem('curProject');
+      }
+      const { data } = yield call(menusServices.submit, { item, id })
+      if (data.code === 0) {
+        message.success('保存成功')
+      } else {
+        message.error(data.message)
+      }
     }
   },
   subscriptions: {
     setup({ dispatch, history }) {
-      return history.listen(({ pathname, query }) => {
+      return history.listen(({ pathname }) => {
         if (pathname === '/menus') {
-          dispatch({ type: 'fetch', payload: query });
+          dispatch({ type: 'fetch', });
         }
       });
     },

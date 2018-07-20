@@ -5,12 +5,11 @@ import FieldList from './FieldList';
 
 const FormItem = Form.Item;
 
-function PageEdit({ dispatch, url, page_template, page_name, searchFields, showFields, loading }) {
+function PageDetail({ dispatch, url, page_template, page_name, searchFields, showFields, loading }) {
   const formItemLayout = {
     labelCol: { span: 6 },
     wrapperCol: { span: 14 },
   };
-  console.log(page_template)
   function addSearchFields(values) {
     dispatch({
       type: 'pageedit/addSearch',
@@ -57,9 +56,9 @@ function PageEdit({ dispatch, url, page_template, page_name, searchFields, showF
 }
 
 function mapStateToProps(state) {
-  const { url, page_template,  page_name, searchFields, showFields } = state.pageedit;
+  const { url, page_template, page_name, searchFields, showFields } = state.pageedit;
   return {
-    url,
+    url: url || '',
     page_template,
     page_name,
     searchFields,
@@ -68,4 +67,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(PageEdit);
+export default connect(mapStateToProps)(PageDetail);

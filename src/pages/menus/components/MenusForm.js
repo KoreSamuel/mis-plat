@@ -16,16 +16,7 @@ class MenusForm extends Component {
     const { onOk } = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values)
-        // if (values.extra) {
-        //   values.extra = values.extra.filter(k => k); // 去除空元素
-        // }
         onOk(values);
-        // this.props.form.resetFields();
-        // this.setState({
-        //   displayType: '',
-        //   sk: [0]
-        // })
       }
     });
   };
@@ -46,40 +37,43 @@ class MenusForm extends Component {
     return (
       <span>
         <Form onSubmit={this.okHandler} style={{ width: 700 }}>
-          {this.props.data && this.props.data.map((item, index) => {
-            return <div key={index} style={{ position: 'relative', overflow: 'hidden' }}>
-              <FormItem style={{ display: 'none' }}>
-                {
-                  getFieldDecorator(`item[${index}].menu_id`, {
-                    initialValue: item.menu_id,
-                  })(<Input />)
-                }
-              </FormItem>
-              <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单名称' hasFeedback>
-                {
-                  getFieldDecorator(`item[${index}].menu_name`, {
-                    initialValue: item.menu_name,
-                    rules: [{
-                      required: true,
-                      message: '请输入菜单名称'
-                    }]
-                  })(<Input style={{ width: 200 }} placeholder='请输入菜单名称' />)
-                }
-              </FormItem>
-              <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单URL' hasFeedback>
-                {
-                  getFieldDecorator(`item[${index}].menu_url`, {
-                    initialValue: item.menu_url
-                  })(<Input style={{ width: 200 }} placeholder='请输入菜单URL（选填）' />)
-                }
-              </FormItem>
-              <p style={{ position: 'absolute', right: 28, bottom: 30, fontSize: 20, width: 50, textAlign: 'left' }}>
-                {1 !== this.props.data.length ? <Icon onClick={() => this.removeMenuItem(item)} style={{ cursor: 'pointer' }} type="minus-circle-o" /> : null}
-                {index === this.props.data.length - 1 ? <Icon onClick={() => this.addMenuItem()} style={{ cursor: 'pointer', marginLeft: 8 }} type="plus-circle-o" /> : null}
-              </p>
-              <Divider style={{ margin: '10px 0' }} />
-            </div>
-          })}
+          {this.props.data && this.props.data.length > 0 ?
+            this.props.data.map((item, index) => {
+              return <div key={index} style={{ position: 'relative', overflow: 'hidden' }}>
+                <FormItem style={{ display: 'none' }}>
+                  {
+                    getFieldDecorator(`item[${index}].menu_id`, {
+                      initialValue: item.menu_id,
+                    })(<Input />)
+                  }
+                </FormItem>
+                <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单名称' hasFeedback>
+                  {
+                    getFieldDecorator(`item[${index}].menu_name`, {
+                      initialValue: item.menu_name,
+                      rules: [{
+                        required: true,
+                        message: '请输入菜单名称'
+                      }]
+                    })(<Input style={{ width: 200 }} placeholder='请输入菜单名称' />)
+                  }
+                </FormItem>
+                <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单URL' hasFeedback>
+                  {
+                    getFieldDecorator(`item[${index}].menu_url`, {
+                      initialValue: item.menu_url
+                    })(<Input style={{ width: 200 }} placeholder='请输入菜单URL（选填）' />)
+                  }
+                </FormItem>
+                <p style={{ position: 'absolute', right: 28, bottom: 30, fontSize: 20, width: 50, textAlign: 'left' }}>
+                  {1 !== this.props.data.length ? <Icon onClick={() => this.removeMenuItem(item)} style={{ cursor: 'pointer' }} type="minus-circle-o" /> : null}
+                  {index === this.props.data.length - 1 ? <Icon onClick={() => this.addMenuItem()} style={{ cursor: 'pointer', marginLeft: 8 }} type="plus-circle-o" /> : null}
+                </p>
+                <Divider style={{ margin: '10px 0' }} />
+              </div>
+            }) :
+            <Icon onClick={() => this.addMenuItem()} style={{ cursor: 'pointer', marginLeft: 8 }} type="plus-circle-o" />
+          }
           <FormItem>
             <Button type="primary" htmlType="submit">确认保存</Button>
           </FormItem>

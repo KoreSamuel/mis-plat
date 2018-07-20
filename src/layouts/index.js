@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import { Layout } from 'antd';
-import SiderMenu from "../components/SiderMenu/SiderMenu";
+import SiderMenu from "../components/SiderMenu";
 import { getMenuData } from '../common/menu';
 import logo from '../assets/logo.svg';
 import GlobalHeader from "../components/GlobalHeader";
+import widthRouter from 'umi/withRouter';
 
 const { Content, Header } = Layout;
 
@@ -24,6 +25,8 @@ class BasicLayout extends Component {
   render() {
     const { children, location } = this.props;
     const { collapsed } = this.state;
+    let user = localStorage.getItem('user') || '';
+    user = user ? JSON.parse(user) : {};
     if (location.pathname === '/login') {
       return <Layout>
         <Content>
@@ -46,10 +49,8 @@ class BasicLayout extends Component {
               logo={logo}
               collapsed={collapsed}
               currentUser={{
-                name: 'Serati Ma',
+                name: user.username,
                 avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-                userid: '00000001',
-                notifyCount: 12,
               }}
               onCollapse={this.handleMenuCollapse}
             />
@@ -63,4 +64,4 @@ class BasicLayout extends Component {
   }
 }
 
-export default BasicLayout;
+export default widthRouter(BasicLayout);

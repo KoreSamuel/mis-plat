@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {message} from 'antd';
 
 //设置全局axios默认值
 axios.defaults.timeout = 5000; //5000的超时验证
@@ -8,7 +9,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 const instance = axios.create({
   baseURL: 'http://localhost:3200'
 });
-instance.defaults.withCredentials = true
+// instance.defaults.withCredentials = false
 instance.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 axios.interceptors.request.use = instance.interceptors.request.use;
@@ -35,7 +36,10 @@ instance.interceptors.response.use(
     if (error.response) {
       if (error.response.status === 401) {
         console.log(error.response)
+      } else if (error.response.status === 500) {
+        console.log(error.response)
       }
+      message.error(JSON.stringify(error.response.data))
     }
     return Promise.reject(error.response);
   }

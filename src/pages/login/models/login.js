@@ -1,4 +1,5 @@
 import * as loginServices from '../services/login';
+import router from 'umi/router';
 import { message as Message } from 'antd';
 export default {
 
@@ -16,9 +17,9 @@ export default {
       const { code, info, message } = data;
       if (code === 0) {
         localStorage.setItem('authorization', info.token);
-        localStorage.setItem('user', JSON.stringify(info.user))
+        localStorage.setItem('user', JSON.stringify(info.user));
+        router.push('/')
       } else {
-        console.log(message)
         Message.error(message);
       }
     }
