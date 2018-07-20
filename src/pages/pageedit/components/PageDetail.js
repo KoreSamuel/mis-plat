@@ -28,6 +28,12 @@ function PageDetail({ dispatch, url, page_template, page_name, searchFields, sho
       type: 'pageedit/submit'
     })
   }
+  function removeSearch(values) {
+    dispatch({
+      type: 'pageedit/removeSearch',
+      payload: values
+    })
+  }
   return (
     <div>
       <Card title={'页面名称：' + page_name}>
@@ -45,7 +51,7 @@ function PageDetail({ dispatch, url, page_template, page_name, searchFields, sho
           <Divider />
           <div>
             <p>已添加字段</p>
-            <FieldList type="search" list={searchFields} />
+            <FieldList type="search" removeItem={removeSearch} list={searchFields} />
           </div>
           <Divider />
         </div>

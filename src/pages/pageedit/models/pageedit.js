@@ -34,7 +34,7 @@ export default {
         page_id = localStorage.getItem('curPage');
       }
       const { data } = yield call(pageeditServices.fetch, { id, page_id });
-      const { page_config = {url: '', fields: {}}, page_name, page_template } = data.info;
+      const { page_config = { url: '', fields: {} }, page_name, page_template } = data.info;
       yield put({
         type: 'save',
         payload: {
@@ -74,9 +74,19 @@ export default {
       const { searchFields } = state;
       return { ...state, searchFields: [...searchFields, action.payload] }
     },
+    removeSearch(state, action) {
+      const { searchFields } = state;
+      searchFields.splice(action.payload.index, 1);
+      return { ...state, searchFields: [...searchFields] }
+    },
     addShow(state, action) {
       const { showFields } = state;
       return { ...state, showFields: [...showFields, action.payload] }
+    },
+    removeShow(state, action) {
+      const { showFields } = state;
+      showFields.splice(action.payload.index, 1);
+      return { ...state, showFields: [...showFields] }
     },
     urlChange(state, action) {
       return { ...state, url: action.payload }

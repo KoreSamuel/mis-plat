@@ -21,15 +21,21 @@ function Projects({ dispatch, list: dataSource, loading }) {
     });
   }
 
+  function exportHandler(id) {
+    dispatch({
+      type: 'projects/export',
+      payload: id
+    })
+  }
+
   function editHandler(id, values) {
     dispatch({
-      type: 'users/patch',
+      type: 'projects/patch',
       payload: { id, values },
     });
   }
 
   function createHandler(values) {
-    console.log(values)
     dispatch({
       type: 'projects/create',
       payload: values,
@@ -64,7 +70,7 @@ function Projects({ dispatch, list: dataSource, loading }) {
           <Popconfirm title="您确定要删除吗?" onConfirm={deleteHandler.bind(null, record.site_id)}>
             <a href="">删除</a>
           </Popconfirm>
-          <Popconfirm title="您确定要导出吗?" onConfirm={deleteHandler.bind(null, record.site_id)}>
+          <Popconfirm title="您确定要导出吗?" onConfirm={exportHandler.bind(null, record.site_id)}>
             <a href="">导出</a>
           </Popconfirm>
         </span>

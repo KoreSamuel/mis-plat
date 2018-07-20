@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {message} from 'antd';
+import { message } from 'antd';
 
 //设置全局axios默认值
 axios.defaults.timeout = 5000; //5000的超时验证

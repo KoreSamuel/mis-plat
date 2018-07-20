@@ -12,6 +12,7 @@ class SearchFields extends Component {
     this.state = {
       displayType: '',
       sk: [0],
+      dk: [0]
     };
   }
 
@@ -42,10 +43,22 @@ class SearchFields extends Component {
       sk: [...prevState.sk, prevState.sk[prevState.sk.length - 1] + 1]
     }))
   }
+  addSearchCheckBox() {
+    this.setState(prevState => ({
+      dk: [...prevState.dk, prevState.dk[prevState.dk.length - 1] + 1]
+    }))
+  }
   removeSearchOption(index) {
     this.setState(prevState => ({
       // 会出现数组不连续情况，需要在提交的时候去除空元素
       sk: prevState.sk.filter(k => k !== index)
+    }))
+  }
+
+  removeSearchCheckBox(index) {
+    this.setState(prevState => ({
+      // 同上
+      dk: prevState.dk.filter(k => k !== index)
     }))
   }
 
@@ -158,26 +171,37 @@ class SearchFields extends Component {
                   </RadioGroup>)
                 }
               </FormItem>
-              <FormItem {...formItemLayout} label='checkbox label' hasFeedback>
-                {
-                  getFieldDecorator('extra[0].label', {
-                    rules: [{
-                      required: true,
-                      message: '请输入checkbox label'
-                    }]
-                  })(<Input placeholder='请输入checkbox label' />)
-                }
-              </FormItem>
-              <FormItem {...formItemLayout} label='checkbox value' hasFeedback>
-                {
-                  getFieldDecorator('extra[0].value', {
-                    rules: [{
-                      required: true,
-                      message: '请输入checkbox value'
-                    }]
-                  })(<Input placeholder='请输入checkbox value' />)
-                }
-              </FormItem>
+
+              {
+                this.state.dk.map((item, index) => {
+                  return <div key={index} style={{ position: 'relative' }}>
+                    <FormItem {...formItemLayout} label='checkbox label' hasFeedback>
+                      {
+                        getFieldDecorator(`extra[${item}].label`, {
+                          rules: [{
+                            required: true,
+                            message: '请输入checkbox label'
+                          }]
+                        })(<Input placeholder='请输入checkbox label' />)
+                      }
+                    </FormItem>
+                    <FormItem {...formItemLayout} label='checkbox value' hasFeedback>
+                      {
+                        getFieldDecorator(`extra[${item}].value`, {
+                          rules: [{
+                            required: true,
+                            message: '请输入checkbox value'
+                          }]
+                        })(<Input placeholder='请输入checkbox value' />)
+                      }
+                    </FormItem>
+                    <p style={{ position: 'absolute', right: 28, bottom: 30, fontSize: 20, width: 50, textAlign: 'left' }}>
+                      {1 !== this.state.dk.length ? <Icon onClick={() => this.removeSearchCheckBox(item)} style={{ cursor: 'pointer' }} type="minus-circle-o" /> : null}
+                      {index === this.state.dk.length - 1 ? <Icon onClick={() => this.addSearchCheckBox()} style={{ cursor: 'pointer', marginLeft: 8 }} type="plus-circle-o" /> : null}
+                    </p>
+                  </div>
+                })
+              }
             </> : null}
           {/* checkbox end */}
           <FormItem>
