@@ -16,9 +16,9 @@ export default {
       const { data } = yield call(loginServices.login, payload);
       const { code, info, message } = data;
       if (code === 0) {
-        localStorage.setItem('authorization', info.token);
-        localStorage.setItem('user', JSON.stringify(info.user));
-        router.push('/')
+        yield localStorage.setItem('authorization', info.token);
+        yield localStorage.setItem('user', JSON.stringify(info.user));
+        yield router.push('/')
       } else {
         Message.error(message);
       }

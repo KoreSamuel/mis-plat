@@ -40,7 +40,7 @@ class ProjectsModal extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { page_name, page_url, page_template } = this.props.record;
+    const { page_name, page_url, page_template, page } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -64,9 +64,25 @@ class ProjectsModal extends Component {
               hasFeedback
             >
               {
+                getFieldDecorator('page', {
+                  initialValue: page,
+                  rules: [{
+                    required: true,
+                    pattern: /^[a-zA-Z\$_][a-zA-Z\_]*$/,
+                    message: '请填写项目名称'
+                  }]
+                })(<Input placeholder="请填写项目名称(英文)" />)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="页面别名"
+              hasFeedback
+            >
+              {
                 getFieldDecorator('page_name', {
                   initialValue: page_name,
-                })(<Input />)
+                })(<Input placeholder="请填写项目别名(选填、中文)"/>)
               }
             </FormItem>
             <FormItem
@@ -77,7 +93,7 @@ class ProjectsModal extends Component {
               {
                 getFieldDecorator('page_url', {
                   initialValue: page_url,
-                })(<Input />)
+                })(<Input placeholder="请填写项目url(选填)" />)
               }
             </FormItem>
             <FormItem
@@ -88,8 +104,12 @@ class ProjectsModal extends Component {
               {
                 getFieldDecorator('page_template', {
                   initialValue: page_template,
+                  rules: [{
+                    required: true,
+                    message: '请选择页面模板'
+                  }]
                 })(
-                  <Select>
+                  <Select placeholder="请选择页面模板">
                     <Option value="1">搜索页模板</Option>
                     <Option value="2">详情页模板</Option>
                     <Option value="3">其他</Option>

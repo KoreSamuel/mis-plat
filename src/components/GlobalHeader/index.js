@@ -27,10 +27,11 @@ export default class GlobalHeader extends PureComponent {
       isMobile,
       logo,
       onMenuClick,
+      logout
     } = this.props;
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-        <Menu.Item key="logout">
+        <Menu.Item onClick={logout} key="logout">
           <Icon type="logout" />退出登录
         </Menu.Item>
       </Menu>

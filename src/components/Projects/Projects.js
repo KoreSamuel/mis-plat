@@ -45,9 +45,14 @@ function Projects({ dispatch, list: dataSource, loading }) {
   const columns = [
     {
       title: '项目名称',
+      dataIndex: 'site',
+      key: 'site',
+      render: (text, record) => <a onClick={goToProject.bind(null, record.site_id)}>{text}</a>,
+    },
+    {
+      title: '项目别名',
       dataIndex: 'site_name',
       key: 'site_name',
-      render: (text, record) => <a onClick={goToProject.bind(null, record.site_id)}>{text}</a>,
     },
     {
       title: '项目描述',

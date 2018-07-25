@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from 'umi/router';
 import { message } from 'antd';
 
 //设置全局axios默认值
@@ -35,6 +36,7 @@ instance.interceptors.response.use(
   error => { //默认除了2XX之外的都是错误的，就会走这里
     if (error.response) {
       if (error.response.status === 401) {
+        router.push('/login');
         console.log(error.response)
       } else if (error.response.status === 500) {
         console.log(error.response)

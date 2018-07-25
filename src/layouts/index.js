@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import { Layout } from 'antd';
+import { connect } from 'dva';
 import SiderMenu from "../components/SiderMenu";
 import { getMenuData } from '../common/menu';
+import router from 'umi/router';
 import logo from '../assets/logo.svg';
 import GlobalHeader from "../components/GlobalHeader";
 import widthRouter from 'umi/withRouter';
@@ -21,6 +23,12 @@ class BasicLayout extends Component {
       collapsed: !this.state.collapsed,
     });
   };
+
+  logout = () => {
+    localStorage.removeItem('authorization');
+    localStorage.removeItem('user');
+    router.push('/login')
+  }
 
   render() {
     const { children, location } = this.props;
@@ -52,6 +60,7 @@ class BasicLayout extends Component {
                 name: user.username,
                 avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
               }}
+              logout={this.logout}
               onCollapse={this.handleMenuCollapse}
             />
           </Header>
@@ -64,4 +73,4 @@ class BasicLayout extends Component {
   }
 }
 
-export default widthRouter(BasicLayout);
+export default widthRouter(connect()(BasicLayout));

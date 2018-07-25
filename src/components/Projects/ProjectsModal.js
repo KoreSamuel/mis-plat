@@ -39,7 +39,7 @@ class ProjectsModal extends Component {
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const { site_name, site_desc, site_template } = this.props.record;
+    const { site_name, site_desc, site_template, site } = this.props.record;
     const formItemLayout = {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
@@ -63,13 +63,28 @@ class ProjectsModal extends Component {
               hasFeedback
             >
               {
+                getFieldDecorator('site', {
+                  initialValue: site,
+                  rules: [{
+                    required: true,
+                    pattern: /^[a-zA-Z\$_][a-zA-Z\d_]*$/,
+                    message: '请输入项目名称(字母数字下划线)'
+                  }]
+                })(<Input placeholder="请输入项目名称(字母数字下划线)" />)
+              }
+            </FormItem>
+            <FormItem
+              {...formItemLayout}
+              label="项目别名"
+              hasFeedback
+            >
+              {
                 getFieldDecorator('site_name', {
                   initialValue: site_name,
                   rules: [{
-                    required: true,
-                    message: '请输入项目名称'
+                    required: false,
                   }]
-                })(<Input />)
+                })(<Input placeholder="请填写项目别名(选填、中文)" />)
               }
             </FormItem>
             <FormItem
@@ -80,7 +95,7 @@ class ProjectsModal extends Component {
               {
                 getFieldDecorator('site_desc', {
                   initialValue: site_desc,
-                })(<Input />)
+                })(<Input placeholder="请填写项目描述(选填)" />)
               }
             </FormItem>
             <FormItem
@@ -95,7 +110,7 @@ class ProjectsModal extends Component {
                   message: '请选择项目模板'
                 }]
               })(
-                <Select placeholder="Please select a template">
+                <Select placeholder="请选择项目模板">
                   <Option value={"1"}>标准</Option>
                   <Option value={"2"}>其他</Option>
                 </Select>

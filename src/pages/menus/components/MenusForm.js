@@ -49,13 +49,24 @@ class MenusForm extends Component {
                 </FormItem>
                 <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单名称' hasFeedback>
                   {
+                    getFieldDecorator(`item[${index}].menu`, {
+                      initialValue: item.menu,
+                      rules: [{
+                        required: true,
+                        pattern: /^[a-zA-Z\$_][a-zA-Z\_]*$/,
+                        message: '请输入菜单名称'
+                      }]
+                    })(<Input style={{ width: 200 }} placeholder='请输入菜单名称(英文)' />)
+                  }
+                </FormItem>
+                <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单别名' hasFeedback>
+                  {
                     getFieldDecorator(`item[${index}].menu_name`, {
                       initialValue: item.menu_name,
                       rules: [{
-                        required: true,
-                        message: '请输入菜单名称'
+                        required: false
                       }]
-                    })(<Input style={{ width: 200 }} placeholder='请输入菜单名称' />)
+                    })(<Input style={{ width: 200 }} placeholder='请输入菜单别名(中文)' />)
                   }
                 </FormItem>
                 <FormItem style={{ width: 300, float: 'left' }} {...formItemLayout} label='菜单URL' hasFeedback>

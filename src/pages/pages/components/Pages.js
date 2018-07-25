@@ -37,9 +37,14 @@ function Pages({ dispatch, list: dataSource, loading, total, page: current }) {
   const columns = [
     {
       title: '页面名称',
+      dataIndex: 'page',
+      key: 'page',
+      render: (text, record) => <a onClick={goToDetail.bind(null, record.page_id)}>{text}</a>,
+    },
+    {
+      title: '页面别名',
       dataIndex: 'page_name',
       key: 'page_name',
-      render: (text, record) => <a onClick={goToDetail.bind(null, record.page_id)}>{text}</a>,
     },
     {
       title: '页面URL',
